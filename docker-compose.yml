@@ -34,13 +34,15 @@ services:
 
   database:
     image: postgres:13
-    ports:
-      - "${COMPOSE_POSTGRES_PORT:-5432}:5432"
     networks:
       - treneris_network
+    ports:
+      - "${COMPOSE_POSTGRES_PORT:-5432}:5432"
 
   redis:
     image: redis:latest
+    networks:
+      - treneris_network
     ports:
       - "${COMPOSE_REDIS_PORT:-6379}:6379"
 
@@ -67,4 +69,3 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 networks:
   treneris_network:
-    external: true
