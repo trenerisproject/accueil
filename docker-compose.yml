@@ -12,6 +12,9 @@ services:
   tsb:
     image: startprojekt/treneris-tsb:latest
     container_name: "tsb"
+    environment:
+      - ENVIRONMENT_MODE=production
+    command: sh -c "/usr/src/entrypoint.sh"
     depends_on:
       - database
       - redis
