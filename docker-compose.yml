@@ -2,17 +2,17 @@ version: '3'
 
 services:
   tsc:
-    image: startprojekt/treneris-tsc
+    image: startprojekt/treneris-tsc:latest
     container_name: "tsc"
     networks:
       - treneris_network
     ports:
       - "8003:80"
-#  tsb:
-#    image: startprojekt/treneris-tsb
-#    container_name: "tsb"
-#    ports:
-#      - "8002:80"
+  tsb:
+    image: startprojekt/treneris-tsb:latest
+    container_name: "tsb"
+    ports:
+      - "8002:80"
   nginx:
     image: nginx:1.15-alpine
     restart: unless-stopped
