@@ -49,6 +49,9 @@ services:
   nginx:
     image: nginx:1.15-alpine
     restart: unless-stopped
+    depends_on:
+      - tsb
+      - tsc
     volumes:
       - ./data/nginx/conf.d:/etc/nginx/conf.d
       - ./data/nginx/include:/etc/nginx/include
