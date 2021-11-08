@@ -11,6 +11,8 @@ services:
   tsb:
     image: startprojekt/treneris-tsb:latest
     container_name: "tsb"
+    networks:
+      - treneris_network
     ports:
       - "8002:80"
   nginx:
