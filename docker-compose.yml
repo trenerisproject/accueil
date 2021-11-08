@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   tsc:
@@ -72,3 +72,5 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 networks:
   treneris_network:
+    name: "treneris_network"
+
