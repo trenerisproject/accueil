@@ -1,6 +1,46 @@
 version: '3'
 
 services:
+  tsc:
+    image: startprojekt/treneris-tsc:latest
+    container_name: "tsc"
+    networks:
+      - treneris_network
+    ports:
+      - "8003:80"
+
+  tsb:
+    image: startprojekt/treneris-tsb:latest
+    container_name: "tsb"
+    depends_on:
+      - database
+      - redis
+    networks:
+      - treneris_network
+    ports:
+      - "8002:80"
+
+  celery-worker:
+    image: startprojekt/treneris-tsb:latest
+    depends_on:
+      - database
+      - redis
+    command: celery -A ${COMPOSE_APP_NAME:-tsb} worker -l INFO
+    networks:
+      - treneris_network
+
+  database:
+    image: postgres:13
+    ports:
+      - "${COMPOSE_POSTGRES_PORT:-5432}:5432"
+    networks:
+      - treneris_network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "${COMPOSE_REDIS_PORT:-6379}:6379"
+
   nginx:
     image: nginx:1.15-alpine
     restart: unless-stopped
